@@ -147,7 +147,7 @@ router.put('/profile', async (req, res, next) => {
     try {
         const User = await User.findById(req.user.id);
         if(!User) {
-            return res.status(400).json({ success: false, msg: 'Invalid Error ' });
+            return res.status(400).json({ success: false, msg: 'Invalid Error' });
         }
 
         User = await User.findByIdAndUpdate(req.user.id, req.body, {
