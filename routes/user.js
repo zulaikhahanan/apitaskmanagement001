@@ -143,5 +143,27 @@ router.post('/login', async(req, res, next) => {
 });
 
 
+router.put('/profile', async (req, res, next) => {
+    try {
+        const User = await User.findById(req.user.id);
+        if(!User) {
+            return res.status(400).json({ success: false, msg: 'Invalid Error ' });
+        }
+
+        User = await User.findByIdAndUpdate(req.user.id, req.body, {
+            new: true,
+            runValidators: true
+        });
+
+        res.status(200).json({ success: true,User: User, msg: 'Successfully Update The Profile Settings' });
+        
+    } catch (error) {
+        next(error);
+    }
+});
+
+
+
+
 
 module.exports = router;

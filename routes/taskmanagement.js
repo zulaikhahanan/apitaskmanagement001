@@ -4,12 +4,11 @@ const auth = require('../middleware/user_jwt');
 const TaskManagement = require('../models/TaskManagement');
 
 const router = express.Router();
-
-// desc    Create New Project
+// desc  Create New Project
 // method POST
 router.post('/', auth, async (req, res, next) => {
     try {
-        const TaskManagement = await TaskManagement.create({ title: req.body.title, attachment : req.body.attachment, groupmembers:req.body.groupmembers,description: req.body.description, user: req.user.id});
+        const TaskManagement = await TaskManagement.create({ title: req.body.title, description: req.body.description, user: req.user.id});
         if(!TaskManagement) {
             return res.status(400).json({
                 success: false,
@@ -31,7 +30,7 @@ router.post('/', auth, async (req, res, next) => {
 //mehod  GET
 router.get('/', auth, async(req, res, next) => {
     try {
-        const TaskManagement= await TaskManagement.find({user: req.user.id, finished: false});
+        const TaskManagement= await TaskManagement.find({user: req.user.id});
 
         if(!TaskManagement) {
             return res.status(400).json({ success: false, msg: 'Something Error Happened'});
@@ -61,8 +60,6 @@ router.get('/finished', auth, async(req, res, next) => {
         next(error);
     }
 });
-
-
 
 // desc   Update A Project
 // method PUT

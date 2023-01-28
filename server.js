@@ -27,9 +27,9 @@ dotenv.config({
 connectDB();
 
 //Routes
-
 app.use('/api/todo/auth', require('./routes/user'));
-app.use('/api/taskmanage', require('./routes/taskmanagement'));
+app.use('/api/taskmanagement', require('./routes/taskmanagement'));
+app.use('/api/member', require('./routes/member'));
 
 //Port
 const PORT = process.env.PORT || 8000;
