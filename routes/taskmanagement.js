@@ -8,7 +8,7 @@ const router = express.Router();
 // method POST
 router.post('/', auth, async (req, res, next) => {
     try {
-        const TaskManagement = await TaskManagement.create({ title: req.body.title, description: req.body.description, user: req.user.id});
+        const TaskManagement = await TaskManagement.create({ title: req.body.title, description: req.body.description});
         if(!TaskManagement) {
             return res.status(400).json({
                 success: false,
