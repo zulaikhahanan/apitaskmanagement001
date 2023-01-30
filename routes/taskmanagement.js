@@ -30,7 +30,7 @@ router.post('/', auth, async (req, res, next) => {
 //mehod  GET
 router.get('/', auth, async(req, res, next) => {
     try {
-        const TaskManagement= await TaskManagement.find({user: req.user.id});
+        const TaskManagement= await TaskManagementModel.find({user: req.user.id});
 
         if(!TaskManagement) {
             return res.status(400).json({ success: false, msg: 'Something Error Happened'});
@@ -86,12 +86,12 @@ router.put('/:id', async (req, res, next) => {
 // method Delete
 router.delete('/:id', async (req, res, next) => {
     try {
-        let TaskManagement = await TaskManagement.findById(req.params.id);
+        let TaskManagement = await TaskManagementModel.findById(req.params.id);
         if(!TaskManagement) {
             return res.status(400).json({ success: false, msg: 'Project Is Not Exists' });
         }
     
-        TaskManagement = await TaskManagement.findByIdAndDelete(req.params.id);
+        TaskManagement = await TaskManagementModel.findByIdAndDelete(req.params.id);
     
         res.status(200).json({
             success: true, msg: 'Successfully Delete The Chosen Project.'
