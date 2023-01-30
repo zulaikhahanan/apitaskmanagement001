@@ -1,14 +1,14 @@
 const express = require('express');
 const auth = require('../middleware/user_jwt');
 
-const TaskManagement = require('../models/TaskManagement');
+const TaskManagementModel = require('../models/TaskManagement');
 
 const router = express.Router();
 // desc  Create New Project
 // method POST
 router.post('/', auth, async (req, res, next) => {
     try {
-        const TaskManagement = await TaskManagement.create({ title: req.body.title, description: req.body.description});
+        const TaskManagement = await TaskManagementModel.create({ title: req.body.title, description: req.body.description});
         if(!TaskManagement) {
             return res.status(400).json({
                 success: false,
