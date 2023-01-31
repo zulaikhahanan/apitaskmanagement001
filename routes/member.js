@@ -19,7 +19,7 @@ router.post('/', auth, async (req, res, next) => {
 
         res.status(200).json({
             success: true,
-            Mmeber: Member,
+            Member: Member,
             msg: 'Successfully Create New Member.'
         });
     } catch (error) {
