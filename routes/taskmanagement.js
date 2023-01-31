@@ -63,24 +63,26 @@ router.get('/finished', auth, async(req, res, next) => {
 
 // desc   Update A Project
 // method PUT
+
 router.put('/:id', async (req, res, next) => {
     try {
-        let TaskManagement = await TaskManagement.findById(req.params.id);
+        let TaskManagement = await TaskManagementModel.findByIdAndUpdate(
+            req.params.id,
+            {$push: req.body},
+            {safe: true, upsert: true, new : true}
+        ).exec();
         if(!TaskManagement) {
             return res.status(400).json({ success: false, msg: 'Project Is Not Exists' });
         }
-
-        TaskManagement = await TaskManagement.findByIdAndUpdate(req.params.id, req.body, {
-            new: true,
-            runValidators: true
-        });
-
-        res.status(200).json({ success: true,TaskManagement: TaskManagement, msg: 'Successfully updated' });
+        
+        // TaskManagement = await TaskManagementModel.findByIdAndUpdate(req.params.id, req.body, {
+            res.status(200).json({ success: true,TaskManagement: TaskManagement, msg: 'Successfully updated' });
         
     } catch (error) {
         next(error);
     }
 });
+
 
 // desc Delete a Project
 // method Delete

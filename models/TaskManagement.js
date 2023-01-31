@@ -1,22 +1,36 @@
 const mongoose = require('mongoose');
 
-const TaskManagementSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        
-    },
-    description: {
-        type: String
-    },
-   // user: {
-     //   type: mongoose.Schema.Types.ObjectId,
-    //    ref: 'User'
-   // },
 
-    //createdAt: {
-      //  type: Date,
-     //   default: Date.now
-   // }
+const memberSchema = new mongoose.Schema({
+  name: {
+      type: String,
+      required: true
+  },
+  role: {
+      type: String,
+      required : true
+  },
+ 
+
+});
+
+const TaskManagementSchema = new mongoose.Schema({
+  title: {
+      type: String,
+      
+  },
+  description: {
+      type: String
+  },
+ member: {
+  type: [memberSchema],
+  required: false,
+},
+
+  //createdAt: {
+    //  type: Date,
+   //   default: Date.now
+ // }
 
 });
 
