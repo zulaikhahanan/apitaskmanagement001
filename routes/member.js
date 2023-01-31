@@ -1,7 +1,7 @@
 const express = require('express');
 const auth = require('../middleware/user_jwt');
 
-const Member = require('../models/Member');
+const MemberModel = require('../models/Member');
 
 const router = express.Router();
 
@@ -9,7 +9,7 @@ const router = express.Router();
 // method POST
 router.post('/', auth, async (req, res, next) => {
     try {
-        const Member = await Member.create({ name: req.body.name, role: req.body.role,  user: req.user.id});
+        const Member = await MemberModel.create({ name: req.body.name, role: req.body.role});
         if(!Member) {
             return res.status(400).json({
                 success: false,
@@ -31,7 +31,7 @@ router.post('/', auth, async (req, res, next) => {
 //mehod  GET
 router.get('/', auth, async(req, res, next) => {
     try {
-        const Member= await Member.find({user: req.user.id, finished: false});
+        const Member= await MemberModel.find({user: req.user.id, finished: false});
 
         if(!Member) {
             return res.status(400).json({ success: false, msg: 'Something Error Happened'});
